@@ -140,6 +140,9 @@
             padding: 10px;
             cursor: pointer;
             transition: all 0.2s;
+            min-width: 30px;
+            min-height: 40px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .key:hover {
@@ -213,6 +216,9 @@
             cursor: pointer;
             transition: all 0.2s;
             margin: 10px;
+            min-width: 30px;
+            min-height: 40px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .btn:hover {
@@ -220,23 +226,142 @@
             transform: translateY(-2px);
         }
         
+        /* Medium devices (tablets, 768px and down) */
         @media (max-width: 768px) {
-            .game-container {
-                flex-direction: column;
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hangman-container, .word-container {
+                min-width: 100%;
+                padding: 15px;
             }
             
             #hangman {
-                width: 200px;
-                height: 240px;
+                width: 180px;
+                height: 220px;
             }
             
             #word {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                letter-spacing: 5px;
+                margin: 15px 0;
+            }
+            
+            #attempts, #lives {
+                font-size: 1rem;
+                margin: 10px 0;
+            }
+            
+            .keyboard {
+                grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+                gap: 6px;
+                padding: 10px;
             }
             
             .key {
                 font-size: 1rem;
                 padding: 8px;
+            }
+            
+            .game-over h2 {
+                font-size: 2rem;
+            }
+            
+            .game-over p {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            input, select, textarea, button {
+                font-size: 16px;
+            }
+        }
+        
+        /* Small devices (phones, 480px and down) */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+            
+            #hangman {
+                width: 150px;
+                height: 180px;
+            }
+            
+            #word {
+                font-size: 1.5rem;
+                letter-spacing: 3px;
+            }
+            
+            .keyboard {
+                grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+                gap: 4px;
+            }
+            
+            .key {
+                font-size: 0.9rem;
+                padding: 6px;
+            }
+            
+            .credit {
+                font-size: 0.8rem;
+                bottom: 20px;
+            }
+            
+            .source-note {
+                font-size: 0.6rem;
+            }
+        }
+        
+        /* Landscape orientation on mobile */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .game-container {
+                flex-direction: row;
+            }
+            
+            #hangman {
+                width: 120px;
+                height: 150px;
+            }
+            
+            #word {
+                font-size: 1.2rem;
+            }
+            
+            .keyboard {
+                grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+                gap: 3px;
+            }
+            
+            .key {
+                font-size: 0.8rem;
+                padding: 4px;
+            }
+        }
+        
+        /* Increase hit area for touch devices */
+        @media (hover: none) {
+            .key, .btn {
+                padding: 12px;
+                margin: 5px;
             }
         }
     </style>

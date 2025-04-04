@@ -98,11 +98,10 @@ async function startNewGame() {
 
 function guessLetter(letter) {
     const buttons = keyboardElement.querySelectorAll(".key");
-    buttons.forEach(button => {
-        if (button.textContent === letter) {
-            button.disabled = true;
-        }
-    });
+    const button = Array.from(buttons).find(btn => btn.textContent === letter);
+    
+    // Disable the button after first click
+    button.disabled = true;
     
     if (attempts.includes(letter)) {
         return;
@@ -112,6 +111,7 @@ function guessLetter(letter) {
     attemptsElement.textContent = "Attempted letters: " + attempts.join(", ");
     
     if (currentWord.includes(letter)) {
+        // Find all occurrences of the letter
         const indices = [];
         for (let i = 0; i < currentWord.length; i++) {
             if (currentWord[i] === letter) {
@@ -119,33 +119,27 @@ function guessLetter(letter) {
             }
         }
         
-        if (indices.length > 0) {
-            const index = indices[Math.floor(Math.random() * indices.length)];
-            displayWord[index] = letter;
+        // Find the first hidden occurrence
+        const hiddenIndex = indices.find(index => displayWord[index] === "-");
+        
+        if (hiddenIndex !== undefined) {
+            // Reveal only the first hidden occurrence
+            displayWord[hiddenIndex] = letter;
             wordElement.textContent = displayWord.join("");
             
-            buttons.forEach(button => {
-                if (button.textContent === letter) {
-                    button.classList.add("correct");
-                }
-            });
+            button.classList.add("correct");
             
-
+            // Check if all letters have been guessed
             if (!displayWord.includes("-")) {
                 endGame(true);
             }
         }
     } else {
-
+        // Wrong guess
         lives--;
         livesElement.textContent = "Lives: " + lives;
         
-
-        buttons.forEach(button => {
-            if (button.textContent === letter) {
-                button.classList.add("incorrect");
-            }
-        });
+        button.classList.add("incorrect");
         
         const partToShow = hangmanParts[10 - lives - 1];
         if (partToShow) {
